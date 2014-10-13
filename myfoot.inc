@@ -27,6 +27,7 @@
 <script src='<?php echo $config->urls->templates?>assets/js/jquery.scrollUp.min.js'></script>
 <script src='<?php echo $config->urls->templates?>assets/js/application.js'></script>
 <script src='<?php echo $config->urls->templates?>assets/js/modal.js'></script>
+
 </body>
 
 </html>

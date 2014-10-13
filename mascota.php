@@ -103,37 +103,30 @@
                                         <td><?php echo $page->mascotaChip ?></td>
                                     </tr>
                                     <tr>
+                                        <td>E-mail:</td>
+                                        <td><?php echo $page->animalesEmail ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dirección:</td>
+                                        <td><?php echo $page->mascotaDireccion ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Telefono:</td>
+                                        <td><?php echo $page->animalesTelefono ?></td>
+                                    </tr>
+                                    <tr>
                                         <td>Fecha de nacimiento:</td>
                                         <td><?php echo strftime("%d %m %Y", date($page->mascotaNacimiento)); ?></td>
-                                    </tr>
-                                    <tr style="display: <?php if (is_null(($pages->get("$page->mascotaCapa")->title))) {echo "none";} ?>">
-                                        <td>Capa:</td>
-                                        <td><?php echo $pages->get("$page->mascotaCapa")->title ?></td>
-                                    </tr>
-                                    <tr style="display: <?php if (is_null(($pages->get("$page->mascotaCaracter")->title))) {echo "none";} ?>">
-                                        <td>Caracter:</td>
-                                        <td><?php echo $pages->get("$page->mascotaCaracter")->title ?></td>
-                                    </tr>                                                                                          
+                                    </tr>                                                                                     
                                     <tr style="display: <?php if (is_null(($pages->get("$page->mascotaCastrado")->title))) {echo "none";} ?>">
                                         <td>Castrado:</td>
                                         <td><?php echo $pages->get("$page->mascotaCastrado")->title ?></td>
                                     </tr>
                                     <tr style="display: <?php if (is_null(($pages->get("$page->mascotaEspecie")->title))) {echo "none";} ?>">
-                                        <td>Especie:</td>
-                                        <td><?php echo $pages->get("$page->mascotaEspecie")->title ?></td>
+                                        <td>Caracteristicas:</td>
+                                        <td><?php echo $pages->get("$page->mascotaEspecie")->title." - ".$pages->get("$page->mascotaSexo")->title." - ".$pages->get("$page->mascotaCaracter")->title." - ".$pages->get("$page->mascotaCapa")->title ?></td>
                                     </tr>
-                                    <tr style="display: <?php if (is_null(($pages->get("$page->mascotaRazaPerro")->title))) {echo "none";} ?>">
-                                        <td>Raza de perro:</td>
-                                        <td><?php echo $pages->get("$page->mascotaRazaPerro")->title ?></td>
-                                    </tr>
-                                    <tr style="display: <?php if (is_null(($pages->get("$page->mascotaRazaGato")->title))) {echo "none";} ?>">
-                                        <td>Raza de gato:</td>
-                                        <td><?php echo $pages->get("$page->mascotaRazaGato")->title ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Sexo:</td>
-                                        <td><?php echo $pages->get("$page->mascotaSexo")->title ?></td>
-                                    </tr> 
+                        
 
                                     </tbody>
                                 </table>
@@ -141,12 +134,20 @@
                         </div>
                     </div>
                     <div class="panel-footer">
-                        <button class="btn btn-sm btn-primary" type="button" data-toggle="tooltip" data-original-title="Send message to user"><i class="glyphicon glyphicon-envelope"></i></button>
-                        <a href="<?php echo $page->last->child ?>">ver anamnesis</a>
-                        <span class="pull-right">
-                            <button class="btn btn-sm btn-warning" type="button" data-toggle="tooltip" data-original-title="Edit this user"><i class="glyphicon glyphicon-edit"></i></button>
-                            <button class="btn btn-sm btn-danger" type="button" data-toggle="tooltip" data-original-title="Remove this user"><i class="glyphicon glyphicon-remove"></i></button>
-                        </span>
+                        
+                         <?php 
+                        foreach ($page->children() as $hijo) { 
+                        $year = substr($hijo->title, 0,4);
+                        $mon = substr($hijo->title, 4,2);
+                        $day = substr($hijo->title, 6,2);
+                        $date = $day." ".$mon." ".$year; ?>
+                        <button class="btn btn-sm btn-primary" type="button" data-toggle="tooltip" data-original-title="Send message to user"><i class="glyphicon glyphicon-envelope"></i></button> 
+                         <a href="<?php echo $hijo->url ?>">
+                            <?php echo $date ?>
+                        </a>
+                        <br>
+
+                        <?php } ?>                        
                     </div>
                 </div>
             </div>

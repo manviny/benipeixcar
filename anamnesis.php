@@ -3,17 +3,20 @@
 
 
 <div class="container">
-
-
-
-  <h2 class="header-lined">Anamnesis de <?php echo $page->parent->title ." el dia ". $page->title ?>  </h2>
+<?php
+$year = substr($page->title, 0,4);
+$mon = substr($page->title, 4,2);
+$day = substr($page->title, 6,2);
+$date = $day." ".$mon." ".$year; ?>
+?>
+  <h2 class="header-lined">Anamnesis de <?php echo $page->parent->title ." el dia ". $date ?>  </h2>
 
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
     <div class="item active">
       <div class="row bottom-margin">
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="blog-teaser animated-when-visible animated flipInX" data-animation-type="flipInX">
             <img alt="" src="<?php echo $page->anamnesisAnaliticas->first->url ?>">
             <h3>
@@ -46,7 +49,7 @@
 
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="blog-teaser animated-when-visible delay-animation-one animated flipInX" data-animation-type="flipInX">
             <img alt="" src="<?php echo $page->anamnesisRx->first->url ?>">
             <h3>
@@ -78,7 +81,7 @@
 
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="blog-teaser animated-when-visible delay-animation-two animated flipInX" data-animation-type="flipInX">
             <img alt="" src="<?php echo $page->anamnesisElectro->first->url ?>">
             <h3>
@@ -110,6 +113,40 @@
    
           </div>
         </div>
+
+        <div class="col-md-3">
+          <div class="blog-teaser animated-when-visible delay-animation-one animated flipInX" data-animation-type="flipInX">
+            <img alt="" src="<?php echo $page->anamnesisEco->first->url ?>">
+            <h3>
+                            <span class="meta-item">
+                <i class="icon-time"></i>
+                Ecografia 17 Nov, 2013
+              </span>
+            </h3>
+
+            <p>Resultados de la pruebas de ecografia.</p>
+            <ul class="list-checkmarked text-bigger">
+            <?php foreach ($page->anamnesisEco as $eco) {
+              $formato = substr("$eco->name", -3);
+              if ($formato == "jpg" || $formato == "png" || $formato == "bmp" || $formato == "gif" || $formato == "peg") {
+                      echo "<li>{$eco->description} - <a href='$eco->url'><i class='icon-camera-retro icon-large'></i></a></li>"; }
+              else
+               
+                if ($formato == "pdf") {echo "<li>{$eco->description} - <a href='$eco->url'><i class='icon-file icon-large'></i></a></li>";}
+             
+              else
+                
+                if ($formato == "doc" || $formato == "ocx"){echo "<li>{$eco->description} - <a href='$eco->url'><i class='icon-file-text-alt icon-large'></i></a></li>";}
+              
+              else
+             
+              {echo "<li>{$eco->description} - <a href='$eco->url'><i class='icon-film icon-large'></i></a></li>";} ;
+            } ?>
+            </ul>
+
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -123,35 +160,31 @@
       </div>
     </div>
 
+    <div class="slogan text-center">
+      <h2 class="header-highlighted">Todas las citas</h2>
+      <p>Registro de todas las citas del paciente por orden cronologico.</p>
 
-  <h2 class="header-lined has-sub-header text-center" style="margin-bottom: -100px;">Valoración general</h2>
+      
+      <?php 
+                        foreach ($page->parent->children() as $hijo) { 
+                        $year = substr($hijo->title, 0,4);
+                        $mon = substr($hijo->title, 4,2);
+                        $day = substr($hijo->title, 6,2);
+                        $date = $day." ".$mon." ".$year; ?>
+                        <div class="col-md-3">
+                        <button class="btn btn-sm btn-primary" type="button" data-toggle="tooltip" data-original-title="Send message to user"><i class="glyphicon glyphicon-envelope"></i></button> 
+                         <a href="<?php echo $hijo->url ?>">
+                            <?php echo $date ?>
+                        </a>
+                        </div>
 
-  <div class="row">
-    <div class="col-md-3">
-      <div class="skill">
-        <div style="display:inline;width:200px;height:200px;"><canvas width="200" height="200"></canvas><input class="dial" data-fgcolor="#87ceeb" data-linecap="round" data-thickness=".2" type="text" value="<?php echo $page->anamnesisPorcentaje1 ?>" readonly="readonly" style="width: 104px; height: 66px; position: absolute; vertical-align: middle; margin-top: 66px; margin-left: -152px; border: 0px; background-image: none; font-weight: bold; font-style: normal; font-variant: normal; font-size: 40px; line-height: normal; font-family: Arial; text-align: center; color: rgb(135, 206, 235); padding: 0px; -webkit-appearance: none; background-position: initial initial; background-repeat: initial initial;"></div>
-        <h4>Salud</h4>
+                        <?php } ?>  
       </div>
-    </div>
-    <div class="col-md-3">
-      <div class="skill">
-        <div style="display:inline;width:200px;height:200px;"><canvas width="200" height="200"></canvas><input class="dial" data-fgcolor="#34bab3" data-linecap="round" data-thickness=".2" type="text" value="<?php echo $page->anamnesisPorcentaje2 ?>" readonly="readonly" style="width: 104px; height: 66px; position: absolute; vertical-align: middle; margin-top: 66px; margin-left: -152px; border: 0px; background-image: none; font-weight: bold; font-style: normal; font-variant: normal; font-size: 40px; line-height: normal; font-family: Arial; text-align: center; color: rgb(52, 186, 179); padding: 0px; -webkit-appearance: none; background-position: initial initial; background-repeat: initial initial;"></div>
-        <h4>Recuperación</h4>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="skill">
-        <div style="display:inline;width:200px;height:200px;"><canvas width="200" height="200"></canvas><input class="dial" data-fgcolor="#e3ce9f" data-linecap="round" data-thickness=".2" type="text" value="<?php echo $page->anamnesisPorcentaje3 ?>" readonly="readonly" style="width: 104px; height: 66px; position: absolute; vertical-align: middle; margin-top: 66px; margin-left: -152px; border: 0px; background-image: none; font-weight: bold; font-style: normal; font-variant: normal; font-size: 40px; line-height: normal; font-family: Arial; text-align: center; color: rgb(227, 206, 159); padding: 0px; -webkit-appearance: none; background-position: initial initial; background-repeat: initial initial;"></div>
-        <h4>Tratamiento</h4>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="skill">
-        <div style="display:inline;width:200px;height:200px;"><canvas width="200" height="200"></canvas><input class="dial" data-fgcolor="#d74681" data-linecap="round" data-thickness=".2" type="text" value="<?php echo $page->anamnesisPorcentaje4 ?>" readonly="readonly" style="width: 104px; height: 66px; position: absolute; vertical-align: middle; margin-top: 66px; margin-left: -152px; border: 0px; background-image: none; font-weight: bold; font-style: normal; font-variant: normal; font-size: 40px; line-height: normal; font-family: Arial; text-align: center; color: rgb(215, 70, 129); padding: 0px; -webkit-appearance: none; background-position: initial initial; background-repeat: initial initial;"></div>
-        <h4>Salida</h4>
-      </div>
-    </div>
-  </div>
+    
+
+  
+
+
 
 
 </div>

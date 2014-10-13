@@ -1,49 +1,37 @@
 <?php
+ 
+      $buscar = "";
 
-/**
- * Search template
- *
- */
+      $pagesBuscar = $pages->get("/plataforma/mascotas/")->children;
 
-$out = '';
 
-if($q = $sanitizer->selectorValue($input->get->q)) {
+      	
+		$events = $pages->find("id=".$pagesBuscar);
+		$events_array = array();
 
-	// Send our sanitized query 'q' variable to the whitelist where it will be
-	// picked up and echoed in the search box by the head.inc file.
-	$input->whitelist('q', $q); 
+		foreach ($events as $event) {
+		    
+		    $nombre = $event->title;
+		    $url = $event->url;
+		    $urlImagen = $event->mascotaImagen->url;
+		    $propietario = $pages->get("$event->mascotaPropietario")->title;
+		    $year = substr($event->child("sort=-sort")->title, 0,4);
+            $mon = substr($event->child("sort=-sort")->title, 4,2);
+            $day = substr($event->child("sort=-sort")->title, 6,2);
+            $date = $day." ".$mon." ".$year;
+            $lastCita = $event->child("sort=-sort")->url;
 
-	// Search the title, body and sidebar fields for our query text.
-	// Limit the results to 50 pages. 
-	// Exclude results that use the 'admin' template. 
-	$matches = $pages->find("title|body|sidebar~=$q, limit=50"); 
-
-	$count = count($matches); 
-
-	if($count) {
-		$out .= "<h2>Found $count pages matching your query:</h2>" . 
-			"<ul class='nav'>";
-
-		foreach($matches as $m) {
-			$out .= "<li><p><a href='{$m->url}'>{$m->title}</a><br />{$m->summary}</p></li>";
+		    $events_array[] = array(
+		        'nombre' => $nombre,
+		        'url' => $url,
+		        'image' => $urlImagen,
+		        'propietario' => $propietario,
+		        'Fecha' => $date,
+		        'urlFecha' =>  $lastCita
+		    );
 		}
+		$events_json = json_encode($events_array, true);
+		$out = $events_json;
 
-		$out .= "</ul>";
-
-	} else {
-		$out .= "<h2>Sorry, no results were found.</h2>";
-	}
-} else {
-	$out .= "<h2>Please enter a search term in the search box (upper right corner)</h2>";
-}
-
-// Note that we stored our output in $out before printing it because we wanted to execute
-// the search before including the header template. This is because the header template 
-// displays the current search query in the search box (via the $input->whitelist) and 
-// we wanted to make sure we had that setup before including the header template. 
-
-include("./head.inc"); 
-
-echo $out; 
-
-include("./foot.inc"); 
+		echo $out;
+?>

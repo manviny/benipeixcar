@@ -48,6 +48,8 @@ if($input->get->user && $input->get->pass) {
 
   <title>Hospital Veterinario Benipeixcar - <?php echo $page->name ?></title>
  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
+ <script src='<?php echo $config->urls->templates?>assets/js/jquery-1.11.1.min.js'></script>
+ <script src='<?php echo $config->urls->templates?>assets/angular/controlador.js'></script>
 </head>
 
 <body>
@@ -171,7 +173,7 @@ if($input->get->user && $input->get->pass) {
     <div class='collapse navbar-collapse navbar-ex1-collapse'>
        <?php if ($user->isGuest()) {
             
-            echo"<!-- -----------------------------------------------------------------------------------------------------------------------------ACTIVAR BOTONES --------
+            echo"
             <a class='btn btn-default navbar-btn navbar-right' data-toggle='modal' href='#registerModal'>
             Registro
             <i class='icon-signin'></i>
@@ -180,7 +182,7 @@ if($input->get->user && $input->get->pass) {
             Acceso
             <i class='icon-signin'></i>
             </a>
-            -->
+            
 
             ";
 
@@ -191,7 +193,7 @@ if($input->get->user && $input->get->pass) {
             echo"<a href='".$pages->get("template=logout")->url."'><button action='".$config->urls->templates."logout.php' name='logout' class='btn btn-default navbar-btn navbar-right'>Desconexión<i class='icon-signout'></i></button></a>";
            
             echo"
-            <a class='btn btn-default navbar-btn navbar-right' name='plataforma' href=''>
+            <a class='btn btn-default navbar-btn navbar-right' name='plataforma' href='".$config->urls->root.'plataforma/mascotas'."'>
             Plataforma
             <i class='icon-signin'></i>
             </a>";}
